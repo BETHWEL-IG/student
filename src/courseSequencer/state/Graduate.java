@@ -1,23 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package courseSequencer.state;
 import courseSequencer.context.CourseSequencer;
 import courseSequencer.data.Student;
 
-/**
- *
- * @author ADMIN
- */
+
 public class Graduate implements CourseSequencerStateI {
 
-	CourseSequencer coursePlanner;
+	CourseSequencer courseSequencer;
 	private final String graduateRequirements1="ABEFIJMN";
 	private final String graduateRequirements2="QRSTUVWXYZ";
 
-	public Graduate(CourseSequencer inCoursePlanner) {
-		coursePlanner = inCoursePlanner;
+	public Graduate(CourseSequencer inCourseSequencer) {
+		courseSequencer = inCourseSequencer;
 	}
 
 
@@ -58,7 +52,7 @@ public class Graduate implements CourseSequencerStateI {
 					for(int iterator=0;iterator<graduateRequirements1.length();iterator++) {
 						if(student.getPreferences().contains(graduateRequirements1.charAt(iterator))) {
 							student.setPointer(0);
-							coursePlanner.setCoursePlannerState(coursePlanner.getState1());
+							courseSequencer.setCoursePlannerState(courseSequencer.getState1());
 							flag1=1;
 							break;
 						}
@@ -67,7 +61,7 @@ public class Graduate implements CourseSequencerStateI {
 						for(int iterator=0;iterator<graduateRequirements1.length();iterator++) {
 							if(student.getPreferences().contains(graduateRequirements1.charAt(iterator))) {
 								student.setPointer(0);
-								coursePlanner.setCoursePlannerState(coursePlanner.getState1());
+								courseSequencer.setCoursePlannerState(courseSequencer.getState1());
 								flag1=1;
 								break;
 							}
@@ -75,7 +69,6 @@ public class Graduate implements CourseSequencerStateI {
 		if(flag1==0) {				
 						for(int iterator=0;iterator<graduateRequirements1.length();iterator++) {
 								if(student.getCompleted().contains(graduateRequirements1.charAt(iterator))) {
-									continue;
 								}else{
 									flag1=2;
 									break;
@@ -84,12 +77,12 @@ public class Graduate implements CourseSequencerStateI {
 							}
 							if(flag1==2) {
 								student.getPreferences().clear();
-								coursePlanner.setCoursePlannerState(coursePlanner.getNotGraduateState());
+								courseSequencer.setCoursePlannerState(courseSequencer.getNotGraduateState());
 							}else {
 								for(int iterator=0;iterator<graduateRequirements2.length();iterator++) {
 									if(student.getPreferences().contains(graduateRequirements2.charAt(iterator))) {
 										student.setPointer(0);
-										coursePlanner.setCoursePlannerState(coursePlanner.getState5());
+										courseSequencer.setCoursePlannerState(courseSequencer.getState5());
 										flag1=4;
 										break;
 									}
@@ -103,7 +96,7 @@ public class Graduate implements CourseSequencerStateI {
 									}
 									if(counter<2) {
 										student.getPreferences().clear();
-										coursePlanner.setCoursePlannerState(coursePlanner.getNotGraduateState());
+										courseSequencer.setCoursePlannerState(courseSequencer.getNotGraduateState());
 									}
 									
 								}
@@ -161,7 +154,7 @@ public class Graduate implements CourseSequencerStateI {
 								}
 								if(!check && student.getPreferences().size()<=3) {
 									student.getPreferences().clear();
-									coursePlanner.setCoursePlannerState(coursePlanner.getNotGraduateState());
+									courseSequencer.setCoursePlannerState(courseSequencer.getNotGraduateState());
 								}
 							}else if(group2.contains(student.getCompleted().get(student.getCompleted().size()-1).toString())) {
 								Boolean check=false;
@@ -176,7 +169,7 @@ public class Graduate implements CourseSequencerStateI {
 								}
 								if(!check && student.getPreferences().size()<=3) {
 									student.getPreferences().clear();
-									coursePlanner.setCoursePlannerState(coursePlanner.getNotGraduateState());
+									courseSequencer.setCoursePlannerState(courseSequencer.getNotGraduateState());
 								}
 							}else if(group3.contains(student.getCompleted().get(student.getCompleted().size()-1).toString())) {
 								Boolean check=false;
@@ -191,7 +184,7 @@ public class Graduate implements CourseSequencerStateI {
 								}
 								if(!check && student.getPreferences().size()<=3) {
 									student.getPreferences().clear();
-									coursePlanner.setCoursePlannerState(coursePlanner.getNotGraduateState());
+									courseSequencer.setCoursePlannerState(courseSequencer.getNotGraduateState());
 								}
 							}else if(group4.contains(student.getCompleted().get(student.getCompleted().size()-1).toString())) {
 								Boolean check=false;
@@ -206,14 +199,14 @@ public class Graduate implements CourseSequencerStateI {
 								}
 								if(!check && student.getPreferences().size()<=3) {
 									student.getPreferences().clear();
-									coursePlanner.setCoursePlannerState(coursePlanner.getNotGraduateState());
+									courseSequencer.setCoursePlannerState(courseSequencer.getNotGraduateState());
 								}
 							}
 						}
 					}
 
 				}else {
-					coursePlanner.setCoursePlannerState(coursePlanner.getNotGraduateState());
+					courseSequencer.setCoursePlannerState(courseSequencer.getNotGraduateState());
 				}
 			}
 
@@ -241,7 +234,7 @@ public class Graduate implements CourseSequencerStateI {
 				student.setIsGraduated(true);
 				student.getPreferences().clear();
 			}else {
-				coursePlanner.setCoursePlannerState(coursePlanner.getNotGraduateState());
+				courseSequencer.setCoursePlannerState(courseSequencer.getNotGraduateState());
 			}
 		}
 

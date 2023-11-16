@@ -1,23 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package courseSequencer.state;
 import courseSequencer.context.CourseSequencer;
 import courseSequencer.data.Student;
 
-/**
- *
- * @author ADMIN
- */
+
 public class DataStructuresAndAlgorithms implements CourseSequencerStateI {
 
-	CourseSequencer coursePlanner;
+	CourseSequencer courseSequencer;
 	private final String group2="EFGH";
 	int count=0;
 
-	public DataStructuresAndAlgorithms(CourseSequencer inCoursePlanner) {
-		coursePlanner = inCoursePlanner;
+	public DataStructuresAndAlgorithms(CourseSequencer inCourseSequencer) {
+		courseSequencer = inCourseSequencer;
 	}
 
         @Override
@@ -27,7 +21,7 @@ public class DataStructuresAndAlgorithms implements CourseSequencerStateI {
 		if(!student.getPreferences().isEmpty()) {
 			for(int iterator=student.getPointer();iterator<student.getPreferences().size();iterator++) {
 				if(isAdded) {
-					coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+					courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 					break;
 				}
 				Character course=student.getPreferences().get(iterator);
@@ -39,7 +33,7 @@ public class DataStructuresAndAlgorithms implements CourseSequencerStateI {
 						student.getPreferences().remove(course);
 						iterator--;
 						if(iterator==student.getPreferences().size()-1)
-							coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+							courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 					}else{
 						if(student.getCompleted().size()%3==0) {
 
@@ -50,7 +44,7 @@ public class DataStructuresAndAlgorithms implements CourseSequencerStateI {
 								student.getPreferences().remove(course);
 								iterator--;
 								if(iterator==student.getPreferences().size()-1)
-									coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+									courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 							}
 
 						}else {
@@ -63,7 +57,7 @@ public class DataStructuresAndAlgorithms implements CourseSequencerStateI {
 										student.getPreferences().remove(course);
 										iterator--;
 										if(iterator==student.getPreferences().size()-1)
-											coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+											courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 									}
 								}
 							}else if(student.getCompleted().size()%3==2) {
@@ -75,7 +69,7 @@ public class DataStructuresAndAlgorithms implements CourseSequencerStateI {
 										student.getPreferences().remove(course);
 										iterator--;
 										if(iterator==student.getPreferences().size()-1)
-											coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+											courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 									}
 								}
 							}
@@ -85,13 +79,13 @@ public class DataStructuresAndAlgorithms implements CourseSequencerStateI {
 
 				}else {
 					student.setPointer(iterator);
-					coursePlanner.setCoursePlannerState(coursePlanner.getState3());
+					courseSequencer.setCoursePlannerState(courseSequencer.getState3());
 					break;
 				}
 			}
 
 		}else {
-			coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+			courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 		}
 		student.setSemestersTaken(student.getCompleted().size()/3+1);
 

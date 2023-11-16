@@ -1,23 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package courseSequencer.state;
 import courseSequencer.context.CourseSequencer;
 import courseSequencer.data.Student;
 
-/**
- *
- * @author ADMIN
- */
+
 public class Electives implements CourseSequencerStateI {
 
-	CourseSequencer coursePlanner;
+	CourseSequencer courseSequencer;
 	private final String group5="QRSTUVWXYZ";
 	int count=0;
 
-	public Electives(CourseSequencer inCoursePlanner) {
-		coursePlanner = inCoursePlanner;
+	public Electives(CourseSequencer inCourseSequencer) {
+		courseSequencer = inCourseSequencer;
 	}
 
         @Override
@@ -26,7 +20,7 @@ public class Electives implements CourseSequencerStateI {
 		if(!student.getPreferences().isEmpty()) {
 			for(int iterator=student.getPointer();iterator<student.getPreferences().size();iterator++) {
 				if(isAdded) {
-					coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+					courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 					break;
 				}
 				Character course=student.getPreferences().get(iterator);
@@ -37,17 +31,17 @@ public class Electives implements CourseSequencerStateI {
 					student.getPreferences().remove(course);
 					iterator--;
 					if(iterator==-1)
-						coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+						courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 					if(iterator==student.getPreferences().size()-1)
-						coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+						courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 				}else {
 					student.setPointer(iterator);
-					coursePlanner.setCoursePlannerState(coursePlanner.getState1());
+					courseSequencer.setCoursePlannerState(courseSequencer.getState1());
 					break;
 				}
 			}
 		}else {
-			coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+			courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 		}
 
 		if(count>student.getStateCount()) {

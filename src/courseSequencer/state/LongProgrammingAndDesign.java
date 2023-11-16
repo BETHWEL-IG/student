@@ -1,23 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package courseSequencer.state;
 import courseSequencer.context.CourseSequencer;
 import courseSequencer.data.Student;
 
-/**
- *
- * @author ADMIN
- */
+
 public class LongProgrammingAndDesign implements CourseSequencerStateI {
 
-	CourseSequencer coursePlanner;
+	CourseSequencer courseSequencer;
 	private final String group1="ABCD";
 	int count=0;
 
-	public LongProgrammingAndDesign(CourseSequencer inCoursePlanner) {
-		coursePlanner = inCoursePlanner;
+	public LongProgrammingAndDesign(CourseSequencer inCourseSequencer) {
+		courseSequencer = inCourseSequencer;
 	}
 
 
@@ -29,7 +23,7 @@ public class LongProgrammingAndDesign implements CourseSequencerStateI {
 		if(!student.getPreferences().isEmpty()) {
 			for(int iterator=student.getPointer();iterator<student.getPreferences().size();iterator++) {
 				if(isAdded) {
-					coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+					courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 					break;
 				}
 				Character course=student.getPreferences().get(iterator);
@@ -41,7 +35,7 @@ public class LongProgrammingAndDesign implements CourseSequencerStateI {
 						student.getPreferences().remove(course);
 						iterator--;
 						if(iterator==student.getPreferences().size()-1)
-							coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+							courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 					}else{
 						if(student.getCompleted().size()%3==0) {
 							if(student.getCompleted().contains(group1.charAt(group1.indexOf(course)-1))) {
@@ -51,7 +45,7 @@ public class LongProgrammingAndDesign implements CourseSequencerStateI {
 								student.getPreferences().remove(course);
 								iterator--;
 								if(iterator==student.getPreferences().size()-1)
-									coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+									courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 							}
 
 						}else {
@@ -64,7 +58,7 @@ public class LongProgrammingAndDesign implements CourseSequencerStateI {
 										student.getPreferences().remove(course);
 										iterator--;
 										if(iterator==student.getPreferences().size()-1)
-											coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+											courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 									}
 								}
 							}else if(student.getCompleted().size()%3==2) {
@@ -76,7 +70,7 @@ public class LongProgrammingAndDesign implements CourseSequencerStateI {
 										student.getPreferences().remove(course);
 										iterator--;
 										if(iterator==student.getPreferences().size()-1)
-											coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+											courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 									}
 								}
 							}
@@ -84,12 +78,12 @@ public class LongProgrammingAndDesign implements CourseSequencerStateI {
 					}
 				}else {
 					student.setPointer(iterator);
-					coursePlanner.setCoursePlannerState(coursePlanner.getState2());
+					courseSequencer.setCoursePlannerState(courseSequencer.getState2());
 					break;
 				}
 			}
 		}else {
-			coursePlanner.setCoursePlannerState(coursePlanner.getGraduateState());
+			courseSequencer.setCoursePlannerState(courseSequencer.getGraduateState());
 		}
 		student.setSemestersTaken(student.getCompleted().size()/3+1);
 
